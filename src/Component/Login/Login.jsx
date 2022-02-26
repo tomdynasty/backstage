@@ -1,14 +1,39 @@
 import React from 'react';
 import {
-  Form, Input, Button, Typography,
+  Form, Input, Button, Typography, message,
 } from 'antd';
 import '../../SCSS/Component/login.scss';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import callPostLogin from '../../API/auth';
 
-function Login(props) {
+function Login() {
+  const navigate = useNavigate();
+
+  /**
+   * 登入
+   * @param {object} val
+   */
+  const handleLogin = (val) => {
+    if (!val.username || !val.password) {
+      message.error('請輸入帳號與密碼');
+      return;
+    }
+    callPostLogin(val.username, val.password)
+      .then((res) => {
+        navigate('/payment');
+      })
+      .catch((error) => {
+        const { status, messageText } = error.response;
+        message.error(`[${status}]  ${messageText}`);
+      });
+  };
+
   return (
     <Form
       name="basic"
       className='login-form'
+      onFinish={handleLogin}
     >
       <Typography.Title>後台管理系統</Typography.Title>
       <Form.Item label="帳號" name="username" >
@@ -27,3 +52,7 @@ function Login(props) {
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: PropTypes.object,
+};
