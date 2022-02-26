@@ -6,7 +6,7 @@ import Login from '../Component/Login/Login';
 import UserPayment from '../Component/UserPayment/UserPayment';
 import '../SCSS/base/normalize.scss';
 import '../SCSS/variable.scss';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.less';
 
 export default function PageRouter() {
   return (
