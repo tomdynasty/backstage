@@ -19,6 +19,7 @@ function Login() {
       message.error('請輸入帳號與密碼');
       return;
     }
+
     callPostLogin(val.username, val.password)
       .then((res) => {
         navigate('/payment');
