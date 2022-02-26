@@ -34,6 +34,11 @@ const columns = [
     ),
   },
   {
+    title: '訂購日期',
+    dataIndex: 'order_date',
+    key: 'order_date',
+  },
+  {
     title: '付款狀態',
     dataIndex: 'payStatus',
     key: 'payStatus',
@@ -62,6 +67,7 @@ const data = [
     orderItems: ['體重計'],
     payStatus: 1,
     note: '',
+    order_date: '2022/01/05 10:00:00',
   },
   {
     id: '2',
@@ -70,6 +76,7 @@ const data = [
     orderItems: ['智慧手錶', '體重計'],
     payStatus: 2,
     note: '',
+    order_date: '2022/01/04 10:00:00',
   },
   {
     id: '3',
@@ -78,6 +85,7 @@ const data = [
     orderItems: ['雕塑營課程', '智慧手錶'],
     payStatus: 1,
     note: '',
+    order_date: '2022/01/04 10:00:00',
   },
 ];
 
