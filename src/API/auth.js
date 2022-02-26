@@ -7,7 +7,7 @@ import axios from 'axios';
  * @return {Promise<AxiosResponse<T> | never>}
  */
 export const callPostLogin = (username, password) => {
-  const url = '/auth_api/user/logi';
+  const url = '/auth_api/user/login';
   const params = {
     username,
     password,
