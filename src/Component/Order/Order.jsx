@@ -5,14 +5,14 @@ import {
   UserOutlined,
   FileTextOutlined,
 } from '@ant-design/icons';
-import PaymentTable from './PaymentTable';
+import OrderTable from './OrderTable';
 
 const {
   Header, Content, Footer, Sider,
 } = Layout;
 const { SubMenu } = Menu;
 
-function UserPayment(props) {
+function Order(props) {
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsedStatus) => {
     setCollapsed(collapsedStatus);
@@ -54,7 +54,7 @@ function UserPayment(props) {
               <Breadcrumb.Item>{selectedYear}</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <PaymentTable />
+              <OrderTable />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>XXXX ©2022 Created by tom_chen</Footer>
@@ -63,4 +63,4 @@ function UserPayment(props) {
   );
 }
 
-export default UserPayment;
+export default Order;

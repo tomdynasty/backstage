@@ -21,7 +21,7 @@ test('取得登入頁面文字', () => {
   expect(header).toBeInTheDocument();
 });
 
-test('登入成功，導轉到 payment 頁面', async () => {
+test('登入成功，導轉到 order 頁面', async () => {
   render(<Login />);
   const usernameInput = screen.getByLabelText('帳號');
   const passwordInput = screen.getByLabelText('密碼');
@@ -35,7 +35,7 @@ test('登入成功，導轉到 payment 頁面', async () => {
   fireEvent.click(screen.queryByText('登 入'));
 
   await waitFor(() => {
-    expect(mockedUsedNavigate).toHaveBeenCalledWith('/payment');
+    expect(mockedUsedNavigate).toHaveBeenCalledWith('/order');
   });
 });
 

@@ -89,7 +89,7 @@ const data = [
   },
 ];
 
-export default function PaymentTable() {
+export default function OrderTable() {
   return (
     <>
       <Table columns={columns} dataSource={data} rowKey="id" />;

@@ -22,7 +22,7 @@ function Login() {
 
     callPostLogin(val.username, val.password)
       .then((res) => {
-        navigate('/payment');
+        navigate('/order');
       })
       .catch((error) => {
         const { status, data } = error.response;
