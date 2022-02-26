@@ -38,3 +38,33 @@ test('登入成功，導轉到 payment 頁面', async () => {
     expect(mockedUsedNavigate).toHaveBeenCalledWith('/payment');
   });
 });
+
+test('[error] 未輸入帳號', async () => {
+  render(<Login />);
+  const passwordInput = screen.getByLabelText('密碼');
+  fireEvent.change(passwordInput, { target: { value: 'password' } });
+
+  // mock login API
+  const loginResponse = { token: 'iamtoken' };
+  mockAxios.post.mockResolvedValueOnce({ data: loginResponse });
+  fireEvent.click(screen.queryByText('登 入'));
+
+  await waitFor(() => {
+    expect(screen.getByText('請輸入帳號與密碼')).toBeInTheDocument();
+  });
+});
+
+test('[error] 未輸入密碼', async () => {
+  render(<Login />);
+  const usernameInput = screen.getByLabelText('帳號');
+  fireEvent.change(usernameInput, { target: { value: 'user' } });
+
+  // mock login API
+  const loginResponse = { token: 'iamtoken' };
+  mockAxios.post.mockResolvedValueOnce({ data: loginResponse });
+  fireEvent.click(screen.queryByText('登 入'));
+
+  await waitFor(() => {
+    expect(screen.getByText('請輸入帳號與密碼')).toBeInTheDocument();
+  });
+});
