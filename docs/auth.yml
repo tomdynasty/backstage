@@ -1,0 +1,113 @@
+openapi: "3.0.2"
+
+info:
+  title: Butler Authentication
+  description: "auth"
+  version: "0.1.0"
+servers:
+- url: "http://localhost"
+  description: Local
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    UserTokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    UnauthorizedError:
+      description: API key / Authorization token is missing or invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          examples:
+            API-Key-Error:
+              value:
+                message: "API key is missing or invalid"
+            Token-Error:
+              value:
+                message: "Authorization token is missing or invalid"
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "bad request"
+
+paths:
+  /auth_api/user/login:
+    post:
+      tags:
+        - User Authentication
+      summary: "使用者登入"
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+            examples:
+              book:
+                value:
+                  username: book
+                  password: isnotbook
+              banana:
+                value:
+                  username: banana
+                  password: isnotbanana
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: iamtoken
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+  /auth_api/user/info:
+    get:
+      tags:
+        - User Authentication
+      summary: "使用者資訊"
+      security:
+        - ApiKeyAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: tom
+
