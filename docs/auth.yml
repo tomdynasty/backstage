@@ -9,33 +9,7 @@ servers:
   description: Local
 
 components:
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-Key
-    UserTokenAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
   responses:
-    UnauthorizedError:
-      description: API key / Authorization token is missing or invalid
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-          examples:
-            API-Key-Error:
-              value:
-                message: "API key is missing or invalid"
-            Token-Error:
-              value:
-                message: "Authorization token is missing or invalid"
     BadRequestError:
       description: Bad request
       content:
@@ -53,8 +27,6 @@ paths:
       tags:
         - User Authentication
       summary: "使用者登入"
-      security:
-        - ApiKeyAuth: []
       requestBody:
         content:
           application/json:
@@ -87,15 +59,11 @@ paths:
                     example: iamtoken
         "400":
           $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
   /auth_api/user/info:
     get:
       tags:
         - User Authentication
       summary: "使用者資訊"
-      security:
-        - ApiKeyAuth: []
       responses:
         "200":
           description: OK
