@@ -36,7 +36,7 @@ function Login() {
       className='login-form'
       onFinish={handleLogin}
     >
-      <Typography.Title>後台管理系統</Typography.Title>
+      <Typography.Title>後臺管理系統</Typography.Title>
       <Form.Item label="帳號" name="username" >
         <Input />
       </Form.Item>

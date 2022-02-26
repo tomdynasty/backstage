@@ -17,7 +17,7 @@ jest.mock('axios');
 
 test('取得登入頁面文字', () => {
   render(<Login />);
-  const header = screen.getByText(/後台管理系統/i);
+  const header = screen.getByText(/後臺管理系統/i);
   expect(header).toBeInTheDocument();
 });
 
