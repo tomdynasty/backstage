@@ -25,8 +25,10 @@ function Login() {
         navigate('/payment');
       })
       .catch((error) => {
-        const { status, messageText } = error.response;
-        message.error(`[${status}]  ${messageText}`);
+        const { status, data } = error.response;
+        const { detail } = data;
+        console.log(`[${status}] ${data.message || detail}`);
+        message.error(`[${status}] ${data.message || detail}`);
       });
   };
 

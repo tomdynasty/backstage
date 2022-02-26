@@ -68,3 +68,53 @@ test('[error] 未輸入密碼', async () => {
     expect(screen.getByText('請輸入帳號與密碼')).toBeInTheDocument();
   });
 });
+
+test('[error] 404 error 路徑錯誤', async () => {
+  render(<Login />);
+  const usernameInput = screen.getByLabelText('帳號');
+  const passwordInput = screen.getByLabelText('密碼');
+
+  fireEvent.change(usernameInput, { target: { value: 'user' } });
+  fireEvent.change(passwordInput, { target: { value: 'password' } });
+
+  fireEvent.click(screen.queryByText('登 入'));
+
+  const error = {
+    response: {
+      status: 404,
+      data: {
+        detail: 'The route /auth_api/user/logi hasn\'t been found in the specification file',
+      },
+    },
+  };
+  mockAxios.post.mockRejectedValue(error);
+  await waitFor(() => {
+    const expectedText = '[404] The route /auth_api/user/logi hasn\'t been found in the specification file';
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+  });
+});
+
+test('[error] 400 api error', async () => {
+  render(<Login />);
+  const usernameInput = screen.getByLabelText('帳號');
+  const passwordInput = screen.getByLabelText('密碼');
+
+  fireEvent.change(usernameInput, { target: { value: 'user' } });
+  fireEvent.change(passwordInput, { target: { value: 'password' } });
+
+  fireEvent.click(screen.queryByText('登 入'));
+
+  const error = {
+    response: {
+      status: 400,
+      data: {
+        message: 'invalid account',
+      },
+    },
+  };
+  mockAxios.post.mockRejectedValue(error);
+  await waitFor(() => {
+    const expectedText = '[400] invalid account';
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+  });
+});
