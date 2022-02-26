@@ -5,6 +5,7 @@ import {
   UserOutlined,
   FileTextOutlined,
 } from '@ant-design/icons';
+import PaymentTable from './PaymentTable';
 
 const {
   Header, Content, Footer, Sider,
@@ -53,7 +54,7 @@ function UserPayment(props) {
               <Breadcrumb.Item>{selectedYear}</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              Table
+              <PaymentTable />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>XXXX ©2022 Created by tom_chen</Footer>
