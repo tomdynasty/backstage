@@ -52,5 +52,6 @@ module.exports = {
     'max-len': ['error', { code: 120 }],
     'react/display-name': 0,
     'no-plusplus': 0,
+    'testing-library/no-node-access': 'off',
   },
 };

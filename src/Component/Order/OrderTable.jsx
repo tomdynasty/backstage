@@ -79,11 +79,18 @@ export default function OrderTable() {
       await dispatch(receiveOrderRecords(year));
       setIsLoading(false);
     };
+
     fetchingOrders();
   }, [dispatch]);
   return (
     <>
-      <Table loading={isLoading} columns={columns} dataSource={orderData} rowKey="id" />
+      <Table
+        loading={isLoading}
+        columns={columns}
+        dataSource={orderData}
+        rowKey="id"
+        className='order-table'
+      />
     </>
   );
 }
