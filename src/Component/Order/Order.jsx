@@ -54,7 +54,7 @@ function Order(props) {
               <Breadcrumb.Item>{selectedYear}</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <OrderTable />
+              <OrderTable year={selectedYear} />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>XXXX ©2022 Created by tom_chen</Footer>

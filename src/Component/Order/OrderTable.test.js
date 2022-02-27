@@ -9,10 +9,11 @@ import OrderTable from './OrderTable';
 
 jest.mock('axios');
 
+const year = 2022;
 function getResponse(url) {
   let response = null;
   switch (url) {
-    case '/order_api/orders/181/record':
+    case `/order_api/orders/${year}/record`:
       response = Promise.resolve({ data: fakeOrderData });
       break;
     default:
@@ -24,7 +25,7 @@ function getResponse(url) {
 describe('訂單列表', () => {
   it('[success] 顯示訂單明細列表成功', async () => {
     mockAxios.get.mockImplementation((url) => getResponse(url));
-    render(<OrderTable />);
+    render(<OrderTable year={year}/>);
 
     let columnNames = null;
     let rows = null;

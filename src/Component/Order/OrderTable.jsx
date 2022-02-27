@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Tag } from 'antd';
+import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { receiveOrderRecords } from '../../Redux/Action/Order';
 
@@ -63,8 +64,9 @@ const columns = [
   },
 ];
 
-export default function OrderTable() {
+export default function OrderTable(props) {
   const [isLoading, setIsLoading] = useState(true);
+  const { year } = props;
 
   const dispatch = useDispatch();
   const {
@@ -74,14 +76,13 @@ export default function OrderTable() {
   }));
 
   useEffect(() => {
-    const year = 181;
     const fetchingOrders = async () => {
       await dispatch(receiveOrderRecords(year));
       setIsLoading(false);
     };
 
     fetchingOrders();
-  }, [dispatch]);
+  }, [dispatch, year]);
   return (
     <>
       <Table
@@ -94,3 +95,7 @@ export default function OrderTable() {
     </>
   );
 }
+
+OrderTable.propTypes = {
+  year: PropTypes.number.isRequired,
+};
