@@ -104,6 +104,10 @@ module.exports = function (proxy, allowedHost) {
       '/auth_api': {
         target: 'http://127.0.0.1:7777/',
         changeOrigin: true,
+      },
+      '/order_api': {
+        target: 'http://127.0.0.1:8888/',
+        changeOrigin: true,
       }
     },
     onBeforeSetupMiddleware(devServer) {

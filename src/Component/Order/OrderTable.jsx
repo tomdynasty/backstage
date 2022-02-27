@@ -1,5 +1,7 @@
-import React from 'react';
-import { Table, Tag } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Table, Tag, Spin } from 'antd';
+import { receiveOrderRecords } from '../../Redux/Action/Order';
 
 const columns = [
   {
@@ -15,8 +17,8 @@ const columns = [
   },
   {
     title: '訂購項目',
-    dataIndex: 'orderItems',
-    key: 'orderItems',
+    dataIndex: 'order_items',
+    key: 'order_items',
     render: (orderItems) => (
       <>
         {orderItems.map((item) => {
@@ -64,7 +66,7 @@ const data = [
     id: '1',
     name: '王力紅',
     sex: 'man',
-    orderItems: ['體重計'],
+    order_items: ['體重計'],
     payStatus: 1,
     note: '',
     order_date: '2022/01/05 10:00:00',
@@ -73,7 +75,7 @@ const data = [
     id: '2',
     name: '周截倫',
     sex: 'man',
-    orderItems: ['智慧手錶', '體重計'],
+    order_items: ['智慧手錶', '體重計'],
     payStatus: 2,
     note: '',
     order_date: '2022/01/04 10:00:00',
@@ -82,7 +84,7 @@ const data = [
     id: '3',
     name: '賽琳娜',
     sex: 'female',
-    orderItems: ['雕塑營課程', '智慧手錶'],
+    order_items: ['雕塑營課程', '智慧手錶'],
     payStatus: 1,
     note: '',
     order_date: '2022/01/04 10:00:00',
@@ -90,9 +92,30 @@ const data = [
 ];
 
 export default function OrderTable() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const dispatch = useDispatch();
+  const {
+    order,
+  } = useSelector((state) => ({
+    order: state.orderRecordsReducer.list,
+  }));
+
+  useEffect(() => {
+    const year = 181;
+    const fetchingOrders = async () => {
+      await dispatch(receiveOrderRecords(year));
+      setIsLoading(false);
+    };
+    fetchingOrders();
+  }, [dispatch]);
   return (
     <>
-      <Table columns={columns} dataSource={data} rowKey="id" />;
+    {
+      isLoading
+        ? <Spin />
+        : <Table columns={columns} dataSource={data} rowKey="id" />
+    }
     </>
   );
 }
