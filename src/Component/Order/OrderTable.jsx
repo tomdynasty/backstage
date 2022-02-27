@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Tag, Spin } from 'antd';
+import dayjs from 'dayjs';
 import { receiveOrderRecords } from '../../Redux/Action/Order';
 
 const columns = [
@@ -39,11 +40,12 @@ const columns = [
     title: '訂購日期',
     dataIndex: 'order_date',
     key: 'order_date',
+    render: (orderDates) => dayjs(orderDates).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
     title: '付款狀態',
-    dataIndex: 'payStatus',
-    key: 'payStatus',
+    dataIndex: 'payment_status',
+    key: 'payment_status',
     render: (payStatus) => {
       if (payStatus === 1) {
         return '已付清';
@@ -61,44 +63,14 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    id: '1',
-    name: '王力紅',
-    sex: 'man',
-    order_items: ['體重計'],
-    payStatus: 1,
-    note: '',
-    order_date: '2022/01/05 10:00:00',
-  },
-  {
-    id: '2',
-    name: '周截倫',
-    sex: 'man',
-    order_items: ['智慧手錶', '體重計'],
-    payStatus: 2,
-    note: '',
-    order_date: '2022/01/04 10:00:00',
-  },
-  {
-    id: '3',
-    name: '賽琳娜',
-    sex: 'female',
-    order_items: ['雕塑營課程', '智慧手錶'],
-    payStatus: 1,
-    note: '',
-    order_date: '2022/01/04 10:00:00',
-  },
-];
-
 export default function OrderTable() {
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
   const {
-    order,
+    orderData,
   } = useSelector((state) => ({
-    order: state.orderRecordsReducer.list,
+    orderData: state.orderRecordsReducer.list,
   }));
 
   useEffect(() => {
@@ -114,7 +86,7 @@ export default function OrderTable() {
     {
       isLoading
         ? <Spin />
-        : <Table columns={columns} dataSource={data} rowKey="id" />
+        : <Table columns={columns} dataSource={orderData} rowKey="id" />
     }
     </>
   );

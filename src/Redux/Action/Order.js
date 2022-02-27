@@ -13,7 +13,7 @@ import {
    */
 export const orderAction = (json) => ({
   type: RECEIVE_ORDER_RECORDS,
-  list: json.data,
+  list: json,
 });
 
 /**
@@ -36,7 +36,6 @@ export const receiveOrderRecords = (year) => (
   (dispatch) => (
     callGetOrderRecords(year)
       .then((json) => {
-        console.log(json);
         dispatch(orderAction(json));
       })
       .catch((error) => {
