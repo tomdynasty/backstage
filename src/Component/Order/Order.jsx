@@ -39,6 +39,8 @@ function Order(props) {
             }
           </div>
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+             {/* 目前點擊 subMenu 會有紅字提醒 `findDOMNode is deprecated in StrictMode`，這部分待 antd 解決，不影響功能
+             https://github.com/ant-design/ant-design/issues/26136 */}
              <SubMenu key="sub1" icon={<FileTextOutlined />} title="訂單明細" onClick={handleYearClick}>
               <Menu.Item key={currentYear}>{ `${currentYear} 年`}</Menu.Item>
               <Menu.Item key={currentYear - 1}>{ `${currentYear - 1} 年`}</Menu.Item>
