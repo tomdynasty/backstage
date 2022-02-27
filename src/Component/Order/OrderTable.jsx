@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Tag } from 'antd';
+import '../../SCSS/Component/orderTable.scss';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import { EditOutlined } from '@ant-design/icons';
 import { receiveOrderRecords } from '../../Redux/Action/Order';
 
 const columns = [
@@ -61,6 +63,10 @@ const columns = [
     title: '後台人員備註',
     dataIndex: 'note',
     key: 'note',
+    render: (note) => <>
+         <EditOutlined className="edit-note" />
+         {note}
+      </>,
   },
 ];
 
