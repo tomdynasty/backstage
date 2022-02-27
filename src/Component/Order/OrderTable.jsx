@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Table, Tag, Spin } from 'antd';
+import { Table, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { receiveOrderRecords } from '../../Redux/Action/Order';
 
@@ -83,11 +83,7 @@ export default function OrderTable() {
   }, [dispatch]);
   return (
     <>
-    {
-      isLoading
-        ? <Spin />
-        : <Table columns={columns} dataSource={orderData} rowKey="id" />
-    }
+      <Table loading={isLoading} columns={columns} dataSource={orderData} rowKey="id" />
     </>
   );
 }
