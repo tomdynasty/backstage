@@ -25,7 +25,7 @@ function Order(props) {
    * @param e
    */
   const handleYearClick = (e) => {
-    setSelectedYear(e.key);
+    setSelectedYear(parseInt(e.key, 10));
   };
 
   return (
