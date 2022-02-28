@@ -2,42 +2,31 @@ import React, { useEffect, useState } from 'react';
 import {
   Outlet,
   Navigate,
+  useNavigate,
 } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { message, Spin } from 'antd';
 import PropTypes from 'prop-types';
-import { receiveUserInfo } from '../Redux/Action/User';
+import Cookies from 'universal-cookie';
 
-export default function RequireAuth({ ...rest }) {
-  const [isAuth, setAuth] = useState(null);
+export default function RequireAuth() {
   const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
-  const {
-    userInfo,
-  } = useSelector((state) => ({
-    userInfo: state.userInfoReducer.userInfo,
-  }));
-
+  const [isAuth, setAuth] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
-    const checkAuth = async () => {
-      if (userInfo.name) {
-        setAuth(true);
-        return;
-      }
-      message.warn('尚未進行帳密驗證');
-    };
-    const fetchingUserInfo = async () => {
-      await dispatch(receiveUserInfo());
-      await checkAuth();
+    const cookie = new Cookies();
+    if (cookie.get('user')) {
+      setAuth(true);
       setIsLoading(false);
-    };
-    fetchingUserInfo();
-  }, [dispatch, userInfo.name]);
+      return;
+    }
+    message.warn('尚未進行帳密驗證');
+    navigate('/');
+  }, [navigate]);
   if (isLoading) {
     return <Spin tip="載入後臺管理頁面內容..." id="auth-spin"/>;
   }
   return (
-    isAuth ? <Outlet {...rest} /> : <Navigate to="/" />
+    isAuth ? <Outlet /> : <Navigate to="/" />
   );
 }
 

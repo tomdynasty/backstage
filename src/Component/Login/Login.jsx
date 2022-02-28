@@ -5,6 +5,7 @@ import {
 import '../../SCSS/Component/login.scss';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import callPostLogin from '../../API/auth';
 
 function Login() {
@@ -22,6 +23,8 @@ function Login() {
 
     callPostLogin(val.username, val.password)
       .then((res) => {
+        const cookie = new Cookies();
+        cookie.set('user', val.username);
         navigate('/order');
       })
       .catch((error) => {
