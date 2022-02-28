@@ -126,14 +126,14 @@ paths:
                     order_items: ["體重計"]
                     order_date: "2022-01-05T08:30:00Z"
                     payment_status: 1
-                    note: ""
+                    note: "備註 1"
                   - id: 2
                     name: "周截倫"
                     sex: "male"
                     order_items: ["智慧手錶", "體重計"]
                     order_date: "2022-01-03T08:30:00Z"
-                    payment_status: 1
-                    note: ""
+                    payment_status: 2
+                    note: "備註 2"
                   - id: 3
                     name: "賽琳娜紅"
                     sex: "female"
@@ -268,9 +268,6 @@ paths:
       tags:
         - 訂單備註
       summary: 修改訂單備註
-      security:
-        - ApiKeyAuth: []
-        - UserTokenAuth: []
       parameters:
         - name: order_id
           required: true
@@ -293,9 +290,5 @@ paths:
           description: No Content
         "400":
           $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          description: Permission denied
         "500":
           description: Internal error

@@ -36,37 +36,40 @@ describe('訂單列表', () => {
     });
 
     // 確認 table header 表頭內容
-    expect(columnNames.length).toBe(6);
-    expect(columnNames[0].textContent).toBe('名字');
-    expect(columnNames[1].textContent).toBe('性別');
-    expect(columnNames[2].textContent).toBe('訂購項目');
-    expect(columnNames[3].textContent).toBe('訂購日期');
-    expect(columnNames[4].textContent).toBe('付款狀態');
-    expect(columnNames[5].textContent).toBe('後台人員備註');
+    expect(columnNames.length).toBe(7);
+    expect(columnNames[0].textContent).toBe('訂單編號');
+    expect(columnNames[1].textContent).toBe('名字');
+    expect(columnNames[2].textContent).toBe('性別');
+    expect(columnNames[3].textContent).toBe('訂購項目');
+    expect(columnNames[4].textContent).toBe('訂購日期');
+    expect(columnNames[5].textContent).toBe('付款狀態');
+    expect(columnNames[6].textContent).toBe('後台人員備註');
 
     // 確認 table body 內容
     expect(rows.length).toBe(2);
     let columns = rows[0].childNodes;
-    expect(columns[0].textContent).toBe('王力紅');
-    expect(columns[1].textContent).toBe('male');
-    let orderItems = columns[2].childNodes;
+    expect(columns[0].textContent).toBe('1');
+    expect(columns[1].textContent).toBe('王力紅');
+    expect(columns[2].textContent).toBe('male');
+    let orderItems = columns[3].childNodes;
     expect(orderItems.length).toBe(1);
     expect(orderItems[0].textContent).toBe('體重計');
     expect(orderItems[0]).toHaveClass('ant-tag-green');
-    expect(columns[3].textContent).toBe('2022-01-05 16:30:00');
-    expect(columns[4].textContent).toBe('已付清');
+    expect(columns[4].textContent).toBe('2022-01-05 16:30:00');
+    expect(columns[5].textContent).toBe('已付清');
 
     columns = rows[1].childNodes;
-    expect(columns[0].textContent).toBe('周截倫');
-    expect(columns[1].textContent).toBe('male');
-    orderItems = columns[2].childNodes;
+    expect(columns[0].textContent).toBe('2');
+    expect(columns[1].textContent).toBe('周截倫');
+    expect(columns[2].textContent).toBe('male');
+    orderItems = columns[3].childNodes;
     expect(orderItems.length).toBe(2);
     expect(orderItems[0].textContent).toBe('雕塑營課程');
     expect(orderItems[0]).toHaveClass('ant-tag-blue');
     expect(orderItems[1].textContent).toBe('體重計');
     expect(orderItems[1]).toHaveClass('ant-tag-green');
-    expect(columns[3].textContent).toBe('2022-01-03 16:30:00');
-    expect(columns[4].textContent).toBe('尚未付款');
+    expect(columns[4].textContent).toBe('2022-01-03 16:30:00');
+    expect(columns[5].textContent).toBe('尚未付款');
   });
 
   it('[error] 顯示訂單明細列表成功失敗', async () => {

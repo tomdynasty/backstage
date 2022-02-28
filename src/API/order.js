@@ -45,4 +45,18 @@ export const callGetOrderStatistics = (year) => {
     .then((response) => (response.data));
 };
 
+/**
+ * 呼叫`修改訂單備註`API
+ * @param {integer} id
+ * @param {string} note
+ * @return {Promise<AxiosResponse<T> | never>}
+ */
+export const callPatchOrderNote = (id, note) => {
+  const url = `/order_api/orders/${id}/note`;
+  const params = { note };
+
+  return axios.patch(url, params)
+    .then((response) => (response.data));
+};
+
 export default callGetOrderRecords;
