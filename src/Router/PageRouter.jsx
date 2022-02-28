@@ -14,7 +14,7 @@ export default function PageRouter() {
     <Router>
         <Routes>
           <Route exact path="/" element={<Login/>}/>
-          <Route exact path='/order' element={<RequireAuth/>}>
+          <Route exact path='/' element={<RequireAuth/>}>
             <Route exact path="/order" element={<Order/>}/>
           </Route>
         </Routes>

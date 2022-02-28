@@ -8,7 +8,7 @@ import { message, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { receiveUserInfo } from '../Redux/Action/User';
 
-export default function RequireAuth() {
+export default function RequireAuth({ ...rest }) {
   const [isAuth, setAuth] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
@@ -32,13 +32,12 @@ export default function RequireAuth() {
       setIsLoading(false);
     };
     fetchingUserInfo();
-    // return () => checkAuth();
   }, [dispatch, userInfo.name]);
   if (isLoading) {
     return <Spin tip="載入後臺管理頁面內容..." id="auth-spin"/>;
   }
   return (
-    isAuth ? <Outlet /> : <Navigate to="/" />
+    isAuth ? <Outlet {...rest} /> : <Navigate to="/" />
   );
 }
 
