@@ -4,23 +4,19 @@ import { Pie } from '@ant-design/plots';
 export default function OrderPie() {
   const data = [
     {
-      type: '分类一',
+      type: '線上課程',
       value: 27,
     },
     {
-      type: '分类二',
-      value: 25,
-    },
-    {
-      type: '分类三',
+      type: '穿戴裝置',
       value: 18,
     },
     {
-      type: '分类四',
+      type: '健身保健/代餐',
       value: 15,
     },
     {
-      type: '分类五',
+      type: '運動配件/服飾',
       value: 10,
     },
     {
