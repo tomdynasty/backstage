@@ -4,12 +4,18 @@ import {
   RECEIVE_ORDER_RECORDS_ERROR,
   RECEIVE_ORDER_CATEGORIES,
   RECEIVE_ORDER_CATEGORIES_ERROR,
+  RECEIVE_ORDER_STATISTICS,
+  RECEIVE_ORDER_STATISTICS_ERROR,
 } from '../Action/Type';
 
 // 初始`取得指定年份的訂單記錄清單`的狀態
 const orderRecordsInitState = {
   list: [],
   categories: [],
+  renewAmount: 0,
+  renewPercent: 0.0,
+  annualRevenue: 0,
+  monthlyRevenue: [],
 };
 
 /**
@@ -46,13 +52,26 @@ const orderRecordsReducer = (state = orderRecordsInitState, action) => {
         description: action.errorText,
         duration: 0,
       });
+      break;
+    case RECEIVE_ORDER_STATISTICS:
       return {
         ...state,
-        categories: [],
+        renewAmount: action.renewAmount,
+        renewPercent: action.renewPercent,
+        annualRevenue: action.annualRevenue,
+        monthlyRevenue: action.monthlyRevenue,
       };
+    case RECEIVE_ORDER_STATISTICS_ERROR:
+      notification.error({
+        message: `${action.errorCode} : 取得訂單分類數據失敗`,
+        description: action.errorText,
+        duration: 0,
+      });
+      break;
     default:
       return state;
   }
+  return state;
 };
 
 export default orderRecordsReducer;

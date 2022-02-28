@@ -8,7 +8,6 @@ import {
 import OrderTable from './OrderTable';
 import OrderPie from './OrderPie';
 import OrderStatistic from './OrderStatistic';
-import OrderMonthlyBar from './OrderMonthlyBar';
 import '../../SCSS/Component/orderTable.scss';
 
 const {
@@ -59,24 +58,13 @@ function Order(props) {
             <Breadcrumb.Item>{selectedYear}</Breadcrumb.Item>
           </Breadcrumb>
           <Content style={{ margin: '0 16px', marginBottom: '16px', display: 'inline-flex' }}>
-              <div className="site-layout-background"
-                  style={{ padding: 24, minHeight: 360, width: '50vw' }}>
+              <div className="site-layout-background" style={{ padding: 24, minHeight: 360, width: '50vw' }}>
                 <OrderPie year={selectedYear} />
               </div>
-              <div
-              style={{
-                width: '50vw',
-                marginLeft: '15px',
-              }}>
-                <div className="site-layout-background" style={{ padding: 24 }}>
-                  <OrderStatistic style={{ marginBottom: '15px' }}/>
-                </div>
-                <div className="site-layout-background"
-                  style={{
-                    padding: 24,
-                  }}>
-                 <OrderMonthlyBar />
-                </div>
+              <div style={{ width: '50vw', marginLeft: '15px' }}>
+              <div className="site-layout-background" style={{ padding: 24 }}>
+                <OrderStatistic year={selectedYear} />
+              </div>
               </div>
           </Content>
           <Content style={{ margin: '0 16px' }}>

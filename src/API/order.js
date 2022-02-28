@@ -30,4 +30,19 @@ export const callGetOrderCategories = (year) => {
     .then((response) => (response.data));
 };
 
+/**
+ * 呼叫`取得指定年份的訂單資料統計`API
+ * @param int year
+ * @return {Promise<AxiosResponse<T> | never>}
+ */
+export const callGetOrderStatistics = (year) => {
+  const url = `/order_api/orders/${year}/statistics`;
+  const params = {
+    year,
+  };
+
+  return axios.get(url, params)
+    .then((response) => (response.data));
+};
+
 export default callGetOrderRecords;

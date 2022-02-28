@@ -1,35 +1,67 @@
-import React from 'react';
-import {
-  Statistic, Row, Col, Button,
-} from 'antd';
-import {
-  ArrowUpOutlined,
-} from '@ant-design/icons';
+import React, {
+  useState, useEffect,
+} from 'react';
+import { Spin } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import '../../SCSS/Component/orderStatistic.scss';
+import PropTypes from 'prop-types';
+import OrderStatisticNumber from './OrderStatisticNumber';
+import OrderMonthlyBar from './OrderMonthlyBar';
+import { receiveOrderStatistics } from '../../Redux/Action/Order';
 
-export default function OrderStatistic() {
+export default function OrderStatistic(props) {
+  const [isLoading, setIsLoading] = useState(true);
+  const { year } = props;
+  const dispatch = useDispatch();
+  const {
+    renewAmount,
+    renewPercent,
+    annualRevenue,
+    monthlyRevenue,
+  } = useSelector((state) => ({
+    renewAmount: state.orderRecordsReducer.renewAmount,
+    renewPercent: state.orderRecordsReducer.renewPercent,
+    annualRevenue: state.orderRecordsReducer.annualRevenue,
+    monthlyRevenue: state.orderRecordsReducer.monthlyRevenue,
+  }));
+
+  useEffect(() => {
+    const fetchingStatistics = async () => {
+      await dispatch(receiveOrderStatistics(year));
+      setIsLoading(false);
+    };
+    fetchingStatistics();
+  }, [dispatch, year]);
+
   return (
-    <div style={{ lineHeight: 50 }}>
-      <Row gutter={16}>
-        <Col span={8}>
-          <Statistic title="該年度已續約人數" value={9999} />
-        </Col>
-        <Col span={8}>
-          <Statistic
-              title="年度續約比例"
-              value={11.28}
-              precision={2}
-              valueStyle={{ color: '#3f8600' }}
-              prefix={<ArrowUpOutlined />}
-              suffix="%"
-              className="renew-percent"
-            />
-        </Col>
-        <Col span={8}>
-          <Statistic title="年度收益" value={112893} precision={2} />
-        </Col>
-      </Row>
-
+    <div>
+      <div className="site-layout-background" style={{ padding: 24 }}>
+        { isLoading
+          ? <Spin tip="loading...">
+              <OrderStatisticNumber style={{ marginBottom: '15px' }}
+                renewAmount={renewAmount}
+                renewPercent={renewPercent}
+                annualRevenue={annualRevenue}
+              />
+           </Spin>
+          : <OrderStatisticNumber style={{ marginBottom: '15px' }}
+          renewAmount={renewAmount}
+          renewPercent={renewPercent}
+          annualRevenue={annualRevenue}
+        />
+        }
+      </div>
+      <div className="site-layout-background" style={{ padding: 24 }}>
+        { isLoading
+          ? <Spin tip="loading...">
+              <OrderMonthlyBar monthlyRevenue={monthlyRevenue} />
+            </Spin>
+          : <OrderMonthlyBar monthlyRevenue={monthlyRevenue} />}
+      </div>
   </div>
   );
 }
+
+OrderStatistic.propTypes = {
+  year: PropTypes.number.isRequired,
+};

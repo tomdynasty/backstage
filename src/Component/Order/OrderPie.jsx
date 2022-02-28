@@ -46,9 +46,9 @@ export default function OrderPie(props) {
   };
   return isLoading
     ? <Spin tip="loading...">
-        <Pie {...config} height={300}/>
+        <Pie {...config} height={320}/>
       </Spin>
-    : <Pie {...config} height={300}/>;
+    : <Pie {...config} height={320}/>;
 }
 
 OrderPie.propTypes = {
