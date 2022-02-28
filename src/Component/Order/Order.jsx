@@ -6,6 +6,10 @@ import {
   FileTextOutlined,
 } from '@ant-design/icons';
 import OrderTable from './OrderTable';
+import OrderPie from './OrderPie';
+import OrderStatistic from './OrderStatistic';
+import OrderMonthlyBar from './OrderMonthlyBar';
+import '../../SCSS/Component/orderTable.scss';
 
 const {
   Header, Content, Footer, Sider,
@@ -50,11 +54,32 @@ function Order(props) {
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }} />
+          <Breadcrumb style={{ margin: '16px 20px' }}>
+            <Breadcrumb.Item>訂單明細</Breadcrumb.Item>
+            <Breadcrumb.Item>{selectedYear}</Breadcrumb.Item>
+          </Breadcrumb>
+          <Content style={{ margin: '0 16px', marginBottom: '16px', display: 'inline-flex' }}>
+              <div className="site-layout-background"
+                  style={{ padding: 24, minHeight: 360, width: '50vw' }}>
+                <OrderPie />
+              </div>
+              <div
+              style={{
+                width: '50vw',
+                marginLeft: '15px',
+              }}>
+                <div className="site-layout-background" style={{ padding: 24 }}>
+                  <OrderStatistic style={{ marginBottom: '15px' }}/>
+                </div>
+                <div className="site-layout-background"
+                  style={{
+                    padding: 24,
+                  }}>
+                 <OrderMonthlyBar />
+                </div>
+              </div>
+          </Content>
           <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>訂單明細</Breadcrumb.Item>
-              <Breadcrumb.Item>{selectedYear}</Breadcrumb.Item>
-            </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
               <OrderTable year={selectedYear} />
             </div>
