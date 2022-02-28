@@ -24,7 +24,7 @@ function Login() {
     callPostLogin(val.username, val.password)
       .then((res) => {
         const cookie = new Cookies();
-        cookie.set('user', val.username);
+        cookie.set('user', val.username, { path: '/', expires: new Date(Date.now() + 2592000) });
         navigate('/order');
       })
       .catch((error) => {
