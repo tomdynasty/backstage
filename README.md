@@ -1,6 +1,8 @@
 # 後臺管理頁面專案
 
-![](./demo.mp4)
+https://user-images.githubusercontent.com/35693306/156032159-6e51fee5-274c-49b3-b98f-1c03eac7b86a.mp4
+
+
  
 ## 啟動服務
 
