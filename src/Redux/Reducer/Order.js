@@ -2,11 +2,14 @@ import { notification } from 'antd';
 import {
   RECEIVE_ORDER_RECORDS,
   RECEIVE_ORDER_RECORDS_ERROR,
+  RECEIVE_ORDER_CATEGORIES,
+  RECEIVE_ORDER_CATEGORIES_ERROR,
 } from '../Action/Type';
 
 // 初始`取得指定年份的訂單記錄清單`的狀態
 const orderRecordsInitState = {
   list: [],
+  categories: [],
 };
 
 /**
@@ -30,6 +33,22 @@ const orderRecordsReducer = (state = orderRecordsInitState, action) => {
       });
       return {
         ...state,
+        list: [],
+      };
+    case RECEIVE_ORDER_CATEGORIES:
+      return {
+        ...state,
+        categories: action.categories,
+      };
+    case RECEIVE_ORDER_CATEGORIES_ERROR:
+      notification.error({
+        message: `${action.errorCode} : 取得訂單分類數據失敗`,
+        description: action.errorText,
+        duration: 0,
+      });
+      return {
+        ...state,
+        categories: [],
       };
     default:
       return state;

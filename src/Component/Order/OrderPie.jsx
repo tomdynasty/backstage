@@ -1,32 +1,33 @@
-import React from 'react';
+import React, {
+  useState, useEffect,
+} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Pie } from '@ant-design/plots';
+import { Spin } from 'antd';
+import PropTypes from 'prop-types';
+import { receiveOrderCategories } from '../../Redux/Action/Order';
 
-export default function OrderPie() {
-  const data = [
-    {
-      type: '線上課程',
-      value: 27,
-    },
-    {
-      type: '穿戴裝置',
-      value: 18,
-    },
-    {
-      type: '健身保健/代餐',
-      value: 15,
-    },
-    {
-      type: '運動配件/服飾',
-      value: 10,
-    },
-    {
-      type: '其他',
-      value: 5,
-    },
-  ];
+export default function OrderPie(props) {
+  const [isLoading, setIsLoading] = useState(true);
+  const { year } = props;
+  const dispatch = useDispatch();
+  const {
+    categories,
+  } = useSelector((state) => ({
+    categories: state.orderRecordsReducer.categories,
+  }));
+
+  useEffect(() => {
+    const fetchingCategories = async () => {
+      await dispatch(receiveOrderCategories(year));
+      setIsLoading(false);
+    };
+    fetchingCategories();
+  }, [dispatch, year]);
+
   const config = {
     appendPadding: 10,
-    data,
+    data: categories,
     angleField: 'value',
     colorField: 'type',
     radius: 0.8,
@@ -43,5 +44,13 @@ export default function OrderPie() {
       },
     ],
   };
-  return <Pie {...config} height={300} />;
+  return isLoading
+    ? <Spin tip="loading...">
+        <Pie {...config} height={300}/>
+      </Spin>
+    : <Pie {...config} height={300}/>;
 }
+
+OrderPie.propTypes = {
+  year: PropTypes.number.isRequired,
+};

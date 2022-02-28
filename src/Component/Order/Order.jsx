@@ -61,7 +61,7 @@ function Order(props) {
           <Content style={{ margin: '0 16px', marginBottom: '16px', display: 'inline-flex' }}>
               <div className="site-layout-background"
                   style={{ padding: 24, minHeight: 360, width: '50vw' }}>
-                <OrderPie />
+                <OrderPie year={selectedYear} />
               </div>
               <div
               style={{
