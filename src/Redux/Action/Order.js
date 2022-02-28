@@ -20,10 +20,6 @@ import {
 export const orderAction = (json) => ({
   type: RECEIVE_ORDER_RECORDS,
   list: json,
-  renewAmount: json.renew_amount,
-  renewPercent: json.renew_percent,
-  annualRevenue: json.annual_revenue,
-  monthlyRevenue: json.monthly_revenue,
 });
 
 /**

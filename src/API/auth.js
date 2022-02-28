@@ -17,4 +17,15 @@ export const callPostLogin = (username, password) => {
     .then((response) => (response.data));
 };
 
+/**
+ * 呼叫`取得當前登入的使用者`API
+ * @return {Promise<AxiosResponse<T> | never>}
+ */
+export const callGetUserInfo = () => {
+  const url = '/auth_api/user/info';
+
+  return axios.get(url)
+    .then((response) => (response.data));
+};
+
 export default callPostLogin;
