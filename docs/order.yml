@@ -192,6 +192,76 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "500":
            description: Internal error
+           
+  /order_api/orders/{year}/statistics:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 指定年份的訂單資料統計
+      description: 指定年份的訂單資料統計
+      parameters:
+        - name: year
+          required: true
+          in: path
+          schema:
+            type: integer
+            example: 2022
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  renew_amount:
+                    type: integer
+                    example: 999
+                  renew_percent:
+                    type: number
+                    format: float
+                    example: 50.02
+                  monthly_revenue:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        value:
+                          type: number
+                    example:
+                      - type: "1月"
+                        value: 246666
+                      - type: "2月"
+                        value: 12345
+                      - type: "3月"
+                        value: 123456
+                      - type: "4月"
+                        value: 100000
+                      - type: "5月"
+                        value: 100000
+                      - type: "6月"
+                        value: 200000
+                      - type: "7月"
+                        value: 246666
+                      - type: "8月"
+                        value: 300000
+                      - type: "9月"
+                        value: 400000
+                      - type: "10月"
+                        value: 500000
+                      - type: "11月"
+                        value: 246666
+                      - type: "12月"
+                        value: 246666                        
+                  
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+           description: Internal error          
 
   /order_api/orders/{order_id}/note:
     patch:
