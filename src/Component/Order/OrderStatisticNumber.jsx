@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import {
   ArrowUpOutlined,
+  ArrowDownOutlined,
 } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import '../../SCSS/Component/orderStatistic.scss';
@@ -22,7 +23,7 @@ export default function OrderStatisticNumber(props) {
               value={renewPercent}
               precision={2}
               valueStyle={{ color: '#3f8600' }}
-              prefix={<ArrowUpOutlined />}
+              prefix={(renewPercent < 0) ? <ArrowDownOutlined /> : <ArrowUpOutlined />}
               suffix="%"
               className="renew-percent"
             />
