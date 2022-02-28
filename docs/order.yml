@@ -2,23 +2,13 @@ openapi: "3.0.2"
 
 info:
   title: Order Manage
-  description: "訂單 API，路徑需為: /order_api"
+  description: "訂單 API，路徑需為: /order_api ( 為了模擬真實年份有不同的資料，註解掉變數 year )"
   version: "0.1.0"
 servers:
 - url: "http://localhost"
   description: local
 
 components:
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-Key
-    UserTokenAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
   responses:
     UnauthorizedError:
       description: API key is missing or invalid
@@ -79,19 +69,81 @@ components:
       example: 20
 
 paths:
-  /order_api/orders/{year}/record:
+  # /order_api/orders/{year}/record:
+  #   get:
+  #     tags:
+  #       - 訂單記錄
+  #     summary: 指定年份的訂單記錄清單
+  #     description: 指定年份的訂單記錄清單
+  #     parameters:
+  #       - name: year
+  #         required: true
+  #         in: path
+  #         schema:
+  #           type: integer
+  #           example: 2022
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 type: object
+  #                 properties:
+  #                   id:
+  #                     type: integer
+  #                   name:
+  #                     type: string                      
+  #                   sex:
+  #                     type: string
+  #                   order_items:
+  #                     type: array
+  #                     items:
+  #                       type: string
+  #                   order_date:
+  #                     type: string
+  #                     format: date-time
+  #                   payment_status:
+  #                     type: integer
+  #                   note:
+  #                     type: string                      
+  #             example:
+  #                 - id: 1
+  #                   name: "王力紅"
+  #                   sex: "male"
+  #                   order_items: ["體重計"]
+  #                   order_date: "2022-01-05T08:30:00Z"
+  #                   payment_status: 1
+  #                   note: "備註 1"
+  #                 - id: 2
+  #                   name: "周截倫"
+  #                   sex: "male"
+  #                   order_items: ["智慧手錶", "體重計"]
+  #                   order_date: "2022-01-03T08:30:00Z"
+  #                   payment_status: 2
+  #                   note: "備註 2"
+  #                 - id: 3
+  #                   name: "賽琳娜紅"
+  #                   sex: "female"
+  #                   order_items: ["雕塑營課程", "智慧手錶"]
+  #                   order_date: "2022-01-03T08:30:00Z"
+  #                   payment_status: 1
+  #                   note: ""
+  #       "400":
+  #         $ref: "#/components/responses/BadRequestError"
+  #       "401":
+  #         $ref: "#/components/responses/UnauthorizedError"
+  #       "500":
+  #         description: Internal error
+           
+  /order_api/orders/2022/record:
     get:
       tags:
         - 訂單記錄
-      summary: 指定年份的訂單記錄清單
-      description: 指定年份的訂單記錄清單
-      parameters:
-        - name: year
-          required: true
-          in: path
-          schema:
-            type: integer
-            example: 2022
+      summary: 2022 的訂單記錄清單
+      description: 2022 的訂單記錄清單
       responses:
         "200":
           description: OK
@@ -147,20 +199,163 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "500":
            description: Internal error
-
-  /order_api/orders/{year}/categories:
+           
+  /order_api/orders/2021/record:
     get:
       tags:
         - 訂單記錄
-      summary: 指定年份的訂單分類數據
-      description: 指定年份的訂單分類數據
-      parameters:
-        - name: year
-          required: true
-          in: path
-          schema:
-            type: integer
-            example: 2022
+      summary: 2021 的訂單記錄清單
+      description: 2021 的訂單記錄清單
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string                      
+                    sex:
+                      type: string
+                    order_items:
+                      type: array
+                      items:
+                        type: string
+                    order_date:
+                      type: string
+                      format: date-time
+                    payment_status:
+                      type: integer
+                    note:
+                      type: string                      
+              example:
+                  - id: 1
+                    name: "李小明"
+                    sex: "male"
+                    order_items: ["彈力繩"]
+                    order_date: "2021-01-05T08:30:00Z"
+                    payment_status: 1
+                    note: "備註 1"
+
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+           description: Internal error           
+
+  /order_api/orders/2020/record:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 2020 的訂單記錄清單
+      description: 2020 的訂單記錄清單
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string                      
+                    sex:
+                      type: string
+                    order_items:
+                      type: array
+                      items:
+                        type: string
+                    order_date:
+                      type: string
+                      format: date-time
+                    payment_status:
+                      type: integer
+                    note:
+                      type: string                      
+              example:
+                  - id: 1
+                    name: "汪西城"
+                    sex: "male"
+                    order_items: ["彈力繩"]
+                    order_date: "2021-01-05T08:30:00Z"
+                    payment_status: 1
+                    note: "備註 2020"
+                  - id: 2
+                    name: "中 S"
+                    sex: "male"
+                    order_items: ["智慧手錶", "雕塑營課程"]
+                    order_date: "2021-01-05T08:30:00Z"
+                    payment_status: 1
+                    note: "備註 2020 aaa"                    
+
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+           description: Internal error                      
+  
+  # /order_api/orders/{year}/categories:
+  #   get:
+  #     tags:
+  #       - 訂單記錄
+  #     summary: 指定年份的訂單分類數據
+  #     description: 指定年份的訂單分類數據
+  #     parameters:
+  #       - name: year
+  #         required: true
+  #         in: path
+  #         schema:
+  #           type: integer
+  #           example: 2022
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 type: object
+  #                 properties:
+  #                   type:
+  #                     type: string
+  #                   value:
+  #                     type: number                      
+  #             example:
+  #                 - type: "線上課程"
+  #                   value: 27
+  #                 - type: "穿戴裝置"
+  #                   value: 18
+  #                 - type: "健身保健/代餐"
+  #                   value: 15
+  #                 - type: "運動配件/服飾"
+  #                   value: 10
+  #                 - type: "其他"
+  #                   value: 10                    
+  #       "400":
+  #         $ref: "#/components/responses/BadRequestError"
+  #       "401":
+  #         $ref: "#/components/responses/UnauthorizedError"
+  #       "500":
+  #         description: Internal error
+  
+  /order_api/orders/2022/categories:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 2022 的訂單分類數據
+      description: 2022 的訂單分類數據
       responses:
         "200":
           description: OK
@@ -191,21 +386,160 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
         "500":
-           description: Internal error
-           
-  /order_api/orders/{year}/statistics:
+          description: Internal error
+
+  /order_api/orders/2021/categories:
     get:
       tags:
         - 訂單記錄
-      summary: 指定年份的訂單資料統計
-      description: 指定年份的訂單資料統計
-      parameters:
-        - name: year
-          required: true
-          in: path
-          schema:
-            type: integer
-            example: 2022
+      summary: 2021 的訂單分類數據
+      description: 2021 的訂單分類數據
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    value:
+                      type: number                      
+              example:
+                  - type: "線上課程"
+                    value: 40
+                  - type: "穿戴裝置"
+                    value: 30
+                  - type: "健身保健/代餐"
+                    value: 20
+                  - type: "運動配件/服飾"
+                    value: 20
+                  - type: "其他"
+                    value: 4                    
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          description: Internal error
+
+  /order_api/orders/2020/categories:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 2020 的訂單分類數據
+      description: 2020 的訂單分類數據
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    value:
+                      type: number                      
+              example:
+                  - type: "線上課程"
+                    value: 50
+                  - type: "穿戴裝置"
+                    value: 10
+                  - type: "健身保健/代餐"
+                    value: 3
+                  - type: "運動配件/服飾"
+                    value: 12
+                  - type: "其他"
+                    value: 1                    
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          description: Internal error          
+           
+  # /order_api/orders/{year}/statistics:
+  #   get:
+  #     tags:
+  #       - 訂單記錄
+  #     summary: 指定年份的訂單資料統計
+  #     description: 指定年份的訂單資料統計
+  #     parameters:
+  #       - name: year
+  #         required: true
+  #         in: path
+  #         schema:
+  #           type: integer
+  #           example: 2022
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 renew_amount:
+  #                   type: integer
+  #                   example: 999
+  #                 renew_percent:
+  #                   type: number
+  #                   format: float
+  #                   example: 50.02
+  #                 monthly_revenue:
+  #                   type: array
+  #                   items:
+  #                     type: object
+  #                     properties:
+  #                       type:
+  #                         type: string
+  #                       value:
+  #                         type: number
+  #                   example:
+  #                     - type: "1月"
+  #                       value: 246666
+  #                     - type: "2月"
+  #                       value: 12345
+  #                     - type: "3月"
+  #                       value: 123456
+  #                     - type: "4月"
+  #                       value: 100000
+  #                     - type: "5月"
+  #                       value: 100000
+  #                     - type: "6月"
+  #                       value: 200000
+  #                     - type: "7月"
+  #                       value: 246666
+  #                     - type: "8月"
+  #                       value: 300000
+  #                     - type: "9月"
+  #                       value: 400000
+  #                     - type: "10月"
+  #                       value: 500000
+  #                     - type: "11月"
+  #                       value: 246666
+  #                     - type: "12月"
+  #                       value: 246666                        
+                  
+  #       "400":
+  #         $ref: "#/components/responses/BadRequestError"
+  #       "401":
+  #         $ref: "#/components/responses/UnauthorizedError"
+  #       "500":
+  #         description: Internal error
+  
+  /order_api/orders/2022/statistics:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 2022 的訂單資料統計
+      description: 2022 的訂單資料統計
       responses:
         "200":
           description: OK
@@ -254,14 +588,133 @@ paths:
                       - type: "11月"
                         value: 246666
                       - type: "12月"
-                        value: 246666                        
+                        value: 246666  
+
+  /order_api/orders/2021/statistics:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 2021 的訂單資料統計
+      description: 2021 的訂單資料統計
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  renew_amount:
+                    type: integer
+                    example: 89
+                  renew_percent:
+                    type: number
+                    format: float
+                    example: -3.26
+                  monthly_revenue:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        value:
+                          type: number
+                    example:
+                      - type: "1月"
+                        value: 600000
+                      - type: "2月"
+                        value: 123456
+                      - type: "3月"
+                        value: 123456
+                      - type: "4月"
+                        value: 10009
+                      - type: "5月"
+                        value: 10000
+                      - type: "6月"
+                        value: 300000
+                      - type: "7月"
+                        value: 146666
+                      - type: "8月"
+                        value: 400000
+                      - type: "9月"
+                        value: 300000
+                      - type: "10月"
+                        value: 300000
+                      - type: "11月"
+                        value: 266669
+                      - type: "12月"
+                        value: 146666                          
                   
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
         "500":
-           description: Internal error          
+           description: Internal error 
+           
+  /order_api/orders/2020/statistics:
+    get:
+      tags:
+        - 訂單記錄
+      summary: 2020 的訂單資料統計
+      description: 2020 的訂單資料統計
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  renew_amount:
+                    type: integer
+                    example: 123
+                  renew_percent:
+                    type: number
+                    format: float
+                    example: 10.77
+                  monthly_revenue:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        value:
+                          type: number
+                    example:
+                      - type: "1月"
+                        value: 30000
+                      - type: "2月"
+                        value: 12345
+                      - type: "3月"
+                        value: 12346
+                      - type: "4月"
+                        value: 1009
+                      - type: "5月"
+                        value: 9000
+                      - type: "6月"
+                        value: 30000
+                      - type: "7月"
+                        value: 16666
+                      - type: "8月"
+                        value: 20000
+                      - type: "9月"
+                        value: 30000
+                      - type: "10月"
+                        value: 30000
+                      - type: "11月"
+                        value: 36669
+                      - type: "12月"
+                        value: 1666                          
+                  
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+           description: Internal error            
 
   /order_api/orders/{order_id}/note:
     patch:
